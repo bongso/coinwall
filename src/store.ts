@@ -2,6 +2,7 @@ import {applyMiddleware, compose, createStore} from 'redux'
 import {reducer} from './modules/index'
 import {Store} from 'react-redux'
 import thunk from 'redux-thunk'
+import {RootState} from './@types/store'
 
 const dev = true
 let store

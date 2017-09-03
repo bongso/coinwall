@@ -3,6 +3,7 @@ import {Provider, Store} from 'react-redux'
 import {getStore} from '../src/store'
 import {Home} from '../src/components/Home'
 import {Layout} from '../src/components/Layout'
+import {RootState} from '../src/@types/store'
 
 interface HomeProps {
 }
