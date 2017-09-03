@@ -28,7 +28,8 @@
     "react-redux": "^5.0.6",
     "redux": "^3.7.1",
     "redux-fetch": "https://github.com/deptno/redux-fetch#refac/v2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "rickshaw": "^1.6.3"
   },
   "devDependencies": {
     "cssnano": "^3.10.0",

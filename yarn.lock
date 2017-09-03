@@ -38,6 +38,10 @@
   version "16.0.5"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.5.tgz#d713cf67cc211dea20463d2a0b66005c22070c4b"
 
+"@types/rickshaw@^0.0.28":
+  version "0.0.28"
+  resolved "https://registry.yarnpkg.com/@types/rickshaw/-/rickshaw-0.0.28.tgz#ae606fb174e866eef94cd022f336b16913e424cf"
+
 abbrev@1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.0.tgz#d0554c2256636e2f56e7c2e5ad183f859428d81f"
@@ -1432,6 +1436,10 @@ currency-formatter@^1.2.1:
     accounting "^0.4.1"
     locale-currency "0.0.1"
     object-assign "^4.1.1"
+
+d3@^3.5.16:
+  version "3.5.17"
+  resolved "https://registry.yarnpkg.com/d3/-/d3-3.5.17.tgz#bc46748004378b21a360c9fc7cf5231790762fb8"
 
 d@1:
   version "1.0.0"
@@ -4087,6 +4095,12 @@ rgb-hex@^1.0.0:
 rgb@~0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/rgb/-/rgb-0.1.0.tgz#be27b291e8feffeac1bd99729721bfa40fc037b5"
+
+rickshaw@^1.6.3:
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/rickshaw/-/rickshaw-1.6.3.tgz#e1e80b663d2f0dc2525d0155dcc70e150f847609"
+  dependencies:
+    d3 "^3.5.16"
 
 right-align@^0.1.1:
   version "0.1.3"

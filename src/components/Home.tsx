@@ -7,6 +7,7 @@ import {RootState} from '../@types/store'
 import {BootstrapTable as Table, TableHeaderColumn as Th} from 'react-bootstrap-table'
 import {comma, date, w1000, w10000} from '../utils/formatter'
 import * as Chart from 'react-highcharts'
+import {Fixtures, Graph} from 'rickshaw'
 
 export const Home = connect<S, D, O>(
   (state: RootState) => ({
@@ -18,16 +19,22 @@ export const Home = connect<S, D, O>(
 )(
   class Home extends React.Component<Props, State> {
     state = {
-      closingPrices: []
+      closingPrices: [],
+      graphData: []
     }
     private timer
+    private graph
+    private elGraph
     render() {
       if (!this.props.tickers) {
         return <div>loading...</div>
       }
       const tickers = this.props.tickers.slice(0, 10)
+
       return (
         <div className="row Home">
+          <div ref={r => this.elGraph = r}/>
+          <hr/>
           <Chart config={{
             chart: {
               animation: false
@@ -62,17 +69,40 @@ export const Home = connect<S, D, O>(
     }
 
     componentDidMount() {
-      if (!this.timer) {
-        console.info('timer set')
-        this.timer = setInterval(_ => this.props.bithumbApiTicker(BTC), 2000)
+      const getGraphData = () => {
+        return this.state.graphData
       }
+      this.timer = setInterval(_ => this.props.bithumbApiTicker(BTC), 1000)
+      this.graph = new Graph({
+        element: this.elGraph,
+        height: 200,
+        series: [{
+          color: 'steelblue',
+          name: 'cat',
+          get data() {
+            return getGraphData()
+          }
+        }]
+      })
+
+      this.graph.render()
     }
 
     componentWillReceiveProps(props: Props) {
+      const closingPrices = this.state.closingPrices.concat(props.tickers[0].closingPrice)
+      const min = closingPrices.reduce((min, curr) => min = min > curr
+        ? curr
+        : min,
+        99999999
+      )
       this.setState({
-        closingPrices: this.state.closingPrices
-                         .concat(props.tickers[0].closingPrice)
-      })
+        closingPrices,
+        graphData: closingPrices.map((y, x) => ({x, y: (y - min)+1000}))
+      }, this.graph.render())
+    }
+
+    componentWillUnmount() {
+      clearInterval(this.timer)
     }
   }
 )
@@ -88,5 +118,6 @@ interface O {
 
 type Props = S & D & O
 interface State {
-  closingPrices: any[]
+  closingPrices: any[],
+  graphData: any[]
 }
