@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-typescript-boilerplate",
+  "name": "coin-wall",
   "version": "0.0.1",
   "main": "index.js",
   "repository": "https://github.com/deptno/nextjs-typescript-boilerplate",
@@ -8,7 +8,8 @@
   "scripts": {
     "tsc": "tsc",
     "dev": "next",
-    "build": "next build",
+    "build": "npm run tsc && next build",
+    "export": "next export",
     "start": "next start"
   },
   "dependencies": {

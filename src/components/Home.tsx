@@ -5,14 +5,16 @@ import {bithumbApiTicker} from 'bit-stream/dist/modules/api/bithumb'
 import {BTC, Ticker} from 'bit-stream'
 import {RootState} from '../@types/store'
 import {BootstrapTable as Table, TableHeaderColumn as Th} from 'react-bootstrap-table'
-import {comma, date, w1000, w10000} from '../utils/formatter'
+import {comma, date, w1000} from '../utils/formatter'
 import * as Chart from 'react-highcharts'
-import {Fixtures, Graph} from 'rickshaw'
+import {Graph} from 'rickshaw'
 
 export const Home = connect<S, D, O>(
-  (state: RootState) => ({
-    tickers: state.bit.bithumb.tickers
-  }),
+  (state: RootState) => {
+    return {
+      tickers: state.bit.bithumb.tickers
+    }
+  },
   dispatch => bindActionCreators({
     bithumbApiTicker
   }, dispatch)
@@ -25,6 +27,8 @@ export const Home = connect<S, D, O>(
     private timer
     private graph
     private elGraph
+    private renderRickshaw = () => this.graph.render()
+
     render() {
       if (!this.props.tickers) {
         return <div>loading...</div>
@@ -35,22 +39,10 @@ export const Home = connect<S, D, O>(
         <div className="row Home">
           <div ref={r => this.elGraph = r}/>
           <hr/>
-          <Chart config={{
-            chart: {
-              animation: false
-            },
-            rangeSelector: {
-              selected: 1
-            },
-            title: {
-              text: '현재가격'
-            },
-            series: [{
-              name: '현재가격',
-              data: this.state.closingPrices
-            }]
-          }}/>
+
+          <ChartWrapper data={this.state.closingPrices} />
           <hr/>
+
           <Table data={tickers}>
             <Th dataField="date" dataAlign="center" width="140" dataFormat={date} isKey>날짜</Th>
             <Th dataField="closingPrice" dataAlign="center" width="140" dataFormat={w1000}>현재 가격</Th>
@@ -90,15 +82,11 @@ export const Home = connect<S, D, O>(
 
     componentWillReceiveProps(props: Props) {
       const closingPrices = this.state.closingPrices.concat(props.tickers[0].closingPrice)
-      const min = closingPrices.reduce((min, curr) => min = min > curr
-        ? curr
-        : min,
-        99999999
-      )
+      const min = closingPrices.reduce((min, curr) => min = (min > curr) ? curr : min, 99999999)
       this.setState({
         closingPrices,
         graphData: closingPrices.map((y, x) => ({x, y: (y - min)+1000}))
-      }, this.graph.render())
+      }, this.renderRickshaw)
     }
 
     componentWillUnmount() {
@@ -121,3 +109,20 @@ interface State {
   closingPrices: any[],
   graphData: any[]
 }
+
+const ChartWrapper = props =>
+  <Chart config={{
+    chart: {
+      animation: false
+    },
+    rangeSelector: {
+      selected: 1
+    },
+    title: {
+      text: '현재가격'
+    },
+    series: [{
+      name: '현재가격',
+      data: props.data
+    }]
+  }}/>
