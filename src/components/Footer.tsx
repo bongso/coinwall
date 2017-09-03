@@ -1,5 +1,6 @@
 import * as React from 'react'
 import * as classnames from 'classnames'
+import Link from 'next/link'
 
 export const Footer = props =>
   <footer className={classnames('row', 'Footer')}>
@@ -14,6 +15,11 @@ export const Footer = props =>
         </li>
         <li>
           <a href="https//github.com/bongso/coin-wall">github</a>
+        </li>
+        <li>
+          <Link href="/">
+            <a>home</a>
+          </Link>
         </li>
       </ul>
     </div>
