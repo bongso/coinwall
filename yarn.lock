@@ -852,7 +852,7 @@ binary-extensions@^1.0.0:
 
 "bit-stream@https://github.com/bongso/bit-stream":
   version "0.1.0"
-  resolved "https://github.com/bongso/bit-stream#cfb26563cc1d09dc1185170eeb5c14055b541ecf"
+  resolved "https://github.com/bongso/bit-stream#f80ebe5b02e772fc3972b597dcd0e31003b8c208"
   dependencies:
     moment "^2.18.1"
     object-case "^0.1.4"

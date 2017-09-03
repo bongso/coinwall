@@ -1,7 +1,6 @@
-import {combineEpics} from 'redux-observable'
 import {combineReducers} from 'redux'
+import {bitStreamReducer as bit} from 'bit-stream'
 
-export const epics$  = combineEpics(
-)
 export const reducer = combineReducers<RootState>({
+  bit
 })
