@@ -1,6 +1,10 @@
-# coin-wall
+# <s>coin-wall</>
+
+## deprecated
 
 ---
+
+
 
 forked from <https://github.com/deptno/nextjs-typescript-boilerplate>
 
